@@ -49,7 +49,6 @@ module.exports =
         .then (val) => return @parse(val, textEditor)
 
   parse: (checkstyleOutput, textEditor) ->
-    console.log(checkstyleOutput)
     # Regex to match the error/warning line
     regex = /^(.*\.java):(\d+):([\w \-]+): (warning:|)(.+)/
 
@@ -61,9 +60,11 @@ module.exports =
       if line.match regex
         [file, lineNum, colNum, typeStr, mess] = line.match(regex)[1..5]
 
+        console.log(typeStr)
+
         # checkstyle warning is error; info is warning
         type = "warning"
-        if typeStr == "warning:"
+        if line.indexOf("warning") isnt -1
           type = "error"
 
         messages.push
