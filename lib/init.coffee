@@ -45,7 +45,7 @@ module.exports =
       args.push.apply(args, files)
 
       # Execute checkstyle
-      helpers.exec(@checkstyleExecutablePath, args, {stream: 'stdout', cwd: wd})
+      helpers.exec(@checkstyleExecutablePath, args, {stream: 'stdout', cwd: wd, throwOnStdErr: false})
         .then (val) => return @parse(val, textEditor)
 
   parse: (checkstyleOutput, textEditor) ->
