@@ -1,7 +1,7 @@
 {
   "name": "linter-checkstyle",
   "main": "./lib/init",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Lint java using checkstyle",
   "repository": "https://github.com/SebastianSzturo/linter-checkstyle",
   "license": "MIT",
