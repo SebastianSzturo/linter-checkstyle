@@ -6,7 +6,7 @@ This package will lint your `.java` opened files in Atom through [checkstyle](ht
 
 #### 1. Install ``checkstyle`` in your ``PATH``
 
-On OSX just run
+On OSX just install it via [Homebrew](http://brew.sh/)
 ```
 brew install checkstyle
 ```
