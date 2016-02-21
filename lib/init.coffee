@@ -13,6 +13,10 @@ module.exports =
       type: 'string'
       title: "Check configuration file to use"
       default: path.join __dirname, "..", "data", "default-checkstyle.xml"
+    lintOnlyCurrentFile:
+      type: 'boolean'
+      title: "Lint only current file"
+      default: false
 
   activate: ->
     require('atom-package-deps').install('linter-checkstyle')
@@ -23,6 +27,9 @@ module.exports =
     @subscriptions.add atom.config.observe 'linter-checkstyle.checkConfiguration',
       (newValue) =>
         @checkConfigurationPath = newValue.trim()
+    @subscriptions.add atom.config.observe 'linter-checkstyle.lintOnlyCurrentFile',
+      (newValue) =>
+        @lintOnlyCurrentFile = newValue
 
   deactivate: ->
     @subscriptions.dispose()
@@ -34,7 +41,11 @@ module.exports =
     lint: (textEditor) =>
       filePath = textEditor.getPath()
       wd = path.dirname filePath
-      files = @getFilesEndingWith(@getProjectRootDir(), ".java")
+
+      if @lintOnlyCurrentFile
+        files = [filePath]
+      else
+        files = @getFilesEndingWith(@getProjectRootDir(), ".java")
 
       # ConfigurationPath
       cp = @checkConfigurationPath
